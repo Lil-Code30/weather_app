@@ -90,13 +90,13 @@ function renderWeatherInfo(city) {
               <div class="max-min-temp">
                 <div class="max-temp">
                   <img
-                    src="assets/icons/logo/icons8-arrow-up-48.png"
+                    src="assets/icons/arrow-up.svg"
                     alt=""
                   /><span id="max-temp-value">${result.tempMax}</span>
                 </div>
                 <div class="min-temp">
                   <img
-                    src="assets/icons/logo/icons8-arrow-down-94.png"
+                    src="assets/icons/arrow-down.svg"
                     alt=""
                   />
                   <span id="min-temp-value">${result.tempMin}</span>
