@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header>
+     <div class="logo-box">
+       <span> <img src="assets/icons/logo/logo.png" alt="logo" /></span>
+       <h1>
+         Weather
+         App
+       </h1>
+     </div>
+      <form action="" id="search-form">
+        <input
+          type="text"
+          name="city-name"
+          id="city-name"
+          placeholder="Enter your City Name"
+        />
+        <button type="submit" id="search-btn">Search</button>
+      </form>
+    </header>
+    <div class="app-heading-box">
+      <h1 id="app-heading">Hey there! Welcome</h1>
+    </div>
+    <div class="error-container">
+
+    </div>
+    <main id="main-container">
+      <section class="section-top">
+        <div class="primary-weatherInfos">
+          <div class="city-title">Québec, QC, Canada</div>
+          <div class="weather-main-infos">
+            <div class="weather-main-infos-middle">
+              <div class="weather-icon">
+                <img src="assets/icons/rain-chance.svg" alt="" />
+              </div>
+              <div class="weather-description">
+                <p id="weather-description-value">Rainy Day</p>
+              </div>
+              <div class="max-min-temp">
+                <div class="max-temp">
+                  <img
+                    src="assets/icons/logo/icons8-arrow-up-48.png"
+                    alt=""
+                  /><span id="max-temp-value">61,4°C</span>
+                </div>
+                <div class="min-temp">
+                  <img
+                    src="assets/icons/logo/icons8-arrow-down-94.png"
+                    alt=""
+                  />
+                  <span id="min-temp-value">55,3°C</span>
+                </div>
+              </div>
+            </div>
+            <div class="city-temp">
+              <p id=" city-temp-value">-10°C</p>
+            </div>
+          </div>
+          <div class="date-time-box">
+            <h4>Monday</h4>
+            <div class="weather-main-infos-time">
+              <p>April 7th, 2025</p>
+              <p>21:52</p>
+            </div>
+          </div>
+        </div>
+        <div class="secondary-weatherInfos">
+          <div class="secondary-weatherInfos-boxes">
+            <h2>UV Index</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-uv-index-64.png" alt="" />
+              <h4>6</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Humidity</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-humidity-48.png" alt="" />
+              <h4>62,3%</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Sunrise</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-sunrise-48.png" alt="" />
+              <h4>05:46</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Sunset</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-sunset-48.png" alt="" />
+              <h4>18:04</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Windspeed</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img
+                src="assets/icons/logo/icons8-wind-speed-43-47-48.png"
+                alt=""
+              />
+              <h4>9,4</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Rain chance</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-heavy-rain-48.png" alt="" />
+              <h4>0%</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="assets/JS/script.js"></script>
+  </body>
+</html>
