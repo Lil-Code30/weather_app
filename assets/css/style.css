@@ -211,6 +211,51 @@ main .section-top{
   font-family: "JetBrains Mono", sans-serif;
   font-weight: bold;
 }
+
+#next5Days-container{
+  width: 100%;
+  padding: 0.3rem;
+}
+#next5Days-container h2{
+  font-family: "JetBrains Mono ExtraBold";
+  font-size: 1.5rem;
+}
+#five-forecast-container{
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+  column-gap: 2rem;
+  justify-content: center;
+}
+#five-forecast-container .five-forecast-box{
+  width: 60%;
+  background-color: #f2f3f4;
+  padding: 0.5rem;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.53);
+}
+#five-forecast-container .five-forecast-box .five-forecast-title h4{
+  font-family: "JetBrains Mono ExtraBold";
+  font-size: 1.1rem;
+}
+#five-forecast-container .five-forecast-box .five-forecast-title p{
+  font-family: "JetBrains Mono NL Medium";
+  font-size: 0.9rem;
+}
+#five-forecast-container .five-forecast-box img{
+  width: 4rem;
+}
+#five-forecast-container .five-forecast-box .five-forecast-temp p{
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Media queries*/
 @media only screen and (max-width: 756px){
   header{
     flex-direction: column;
@@ -226,6 +271,16 @@ main .section-top{
   }
   .secondary-weatherInfos{
     width: 100%;
+  }
+  #five-forecast-container{
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  #five-forecast-container .five-forecast-box{
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
   }
 }
 

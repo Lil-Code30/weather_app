@@ -1,7 +1,7 @@
 // https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=fr;
 
 //http://api.weatherstack.com/current?access_key=9eb96fbc693de8930d830f5cef2eb0a4& query=New York
-const APIkey = "9eb96fbc693de8930d830f5cef2eb0a4"; // Please don't use me 😿
+const mainContainer = document.querySelector("#main-container");
 
 const cityName = document.querySelector("#city-name");
 const searchBtn = document.querySelector("#search-btn");
@@ -10,9 +10,10 @@ const errorMsg = document.querySelector(".error-container");
 //fetch the weather data
 async function getWeatherData(city) {
   try {
-    const url = `https://api.weatherstack.com/current?access_key=${APIkey}&query=${city}`;
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/?unitGroup=us&key=JN8U4PCMHTWFHCU6JLYSTHNYC`;
 
     const url2 = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=290cf603e9b9bafeb302e7bd44ef67cb`;
+
 
     const res = await fetch(url, { mode: "cors" });
     const res2 = await fetch(url2, { mode: "cors" });
@@ -21,18 +22,16 @@ async function getWeatherData(city) {
     console.log(res);
     console.log(res2);
 
+
     const weatherData = await res.json();
     const weatherData2 = await res2.json();
-    console.log(weatherData);
-    console.log(weatherData2);
 
     //All the informations of the API
-
+    const localtime = weatherData.days[0].datetime + " " + weatherData.currentConditions.datetime;
+    console.log(localtime);
     return {
-      cityName: weatherData.location.name,
-      region: weatherData.location.region,
-      country: weatherData.location.country,
-      localtime: weatherData.location.localtime,
+      address: weatherData.resolvedAddress,
+      localtime: localtime,
 
       temp: `${tempToCelsius(weatherData2.main.temp)} °C`,
       tempMin: `${tempToCelsius(weatherData2.main.temp_min)} °C`,
@@ -40,13 +39,12 @@ async function getWeatherData(city) {
       weatherId: weatherData2.weather[0].id,
       weatherDescription: weatherData2.weather[0].description,
       weatherIconUrl: ` https://openweathermap.org/img/wn/${weatherData2.weather[0].icon}@2x.png`,
-      uvIndex: weatherData.current.uv_index,
-      humidity: weatherData2.main.humidity,
-      sunrise: weatherData.current.astro.sunrise,
-      sunset: weatherData.current.astro.sunset,
+      uvIndex: weatherData.currentConditions.uvindex,
+      humidity: weatherData.currentConditions.humidity,
+      sunrise: weatherData.currentConditions.sunrise,
+      sunset: weatherData.currentConditions.sunset,
       pressure: weatherData2.main.pressure,
       windSpeed: weatherData2.wind.speed,
-      isDay: weatherData.current.is_day,
     };
   } catch (error) {
     displayError(error.message);
@@ -57,6 +55,7 @@ async function getWeatherData(city) {
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (cityName.value) {
+    renderNext5Forecast(cityName.value);
     renderWeatherInfo(cityName.value);
   } else {
     displayError("Please enter a city name");
@@ -66,7 +65,7 @@ searchBtn.addEventListener("click", (e) => {
 // function to render the  weather data to the body
 
 function renderWeatherInfo(city) {
-  const mainContainer = document.querySelector("#main-container");
+
   mainContainer.innerHTML = "";
   getWeatherData(city).then((result) => {
     if (result) {
@@ -78,7 +77,7 @@ function renderWeatherInfo(city) {
       const renderHTML = `
       <section class="section-top">
         <div class="primary-weatherInfos">
-          <div class="city-title">${result.cityName}, ${result.region}, ${result.country}</div>
+          <div class="city-title">${result.address}</div>
           <div class="weather-main-infos">
             <div class="weather-main-infos-middle">
               <div class="weather-icon">
@@ -166,6 +165,7 @@ function renderWeatherInfo(city) {
       `;
 
       mainContainer.innerHTML = renderHTML;
+      renderNext5Forecast(city);
     } else {
       displayError("Error: No city Found");
     }
@@ -176,6 +176,7 @@ function renderWeatherInfo(city) {
 function displayError(msg) {
   errorMsg.classList.add("display");
   errorMsg.innerHTML = `<p class="error">${msg}</p>`;
+  mainContainer.innerHTML = "";
 }
 
 // function to convert temperature
@@ -210,3 +211,66 @@ function formatLocalTime(datetime){
   };
 
 }
+
+// function to fetch data of the next 5 forecast
+async function getNext5Forecast(city){
+  try{
+    const url3 = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/next5days/?unitGroup=us&key=JN8U4PCMHTWFHCU6JLYSTHNYC`;
+
+    const res3 = await fetch(url3, { mode: "cors" });
+
+    // for debugging
+    console.log(res3);
+    const res3Content = await res3.json();
+    const fiveForecastContent = res3Content.days;
+
+    console.log(fiveForecastContent);
+    return fiveForecastContent;
+  } catch (error){
+    console.log(error)
+    displayError("Error: No city Found");
+  }
+}
+
+// function to render the 5 boxes of the next 5 forecast
+function renderNext5Forecast(city){
+  getNext5Forecast(city).then(result => {
+    const getNext5ForecastContainer = document.createElement("section");
+    getNext5ForecastContainer.id = "next5Days-container";
+
+    const heading = document.createElement("h2");
+    heading.textContent = "5 Day Forecast";
+
+    // div to store every boxes
+    const div = document.createElement("div");
+    div.id = "five-forecast-container";
+
+    for (let i = 1; i < result.length; i++) {
+
+      const date = formatLocalTime(result[i].datetime);
+      const dayOfWeek = date.dayOfWeek;
+      const day = date.day;
+      const month = date.month;
+
+      div.innerHTML  += `
+        <div class="five-forecast-box">
+          <div class="five-forecast-title">
+            <h4>${dayOfWeek}</h4>
+            <p>${month} ${day}</p>
+          </div>
+          <div class="five-forecast-icon-box"  >
+            <img src="assets/icons/main-icons/${result[i].icon}.svg" id="five-forecast-icon" alt="">
+          </div>
+          <div class="five-forecast-temp">
+            <p>${result[i].temp}</p>
+          </div>
+        </div>
+      `;
+    }
+    getNext5ForecastContainer.appendChild(heading);
+    getNext5ForecastContainer.appendChild(div);
+    mainContainer.appendChild(getNext5ForecastContainer);
+  console.log(result);
+  });
+}
+
