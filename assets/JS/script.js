@@ -72,6 +72,98 @@ function renderWeatherInfo(city) {
     if (result) {
       errorMsg.classList.remove("display");
       console.log(result.temp);
+
+      const renderHTML = `
+      <section class="section-top">
+        <div class="primary-weatherInfos">
+          <div class="city-title">${result.cityName}, ${result.region}, ${result.country}</div>
+          <div class="weather-main-infos">
+            <div class="weather-main-infos-middle">
+              <div class="weather-icon">
+                <img src="${result.weatherIconUrl}" alt="" />
+              </div>
+              <div class="weather-description">
+                <p id="weather-description-value">${result.weatherDescription}</p>
+              </div>
+              <div class="max-min-temp">
+                <div class="max-temp">
+                  <img
+                    src="assets/icons/logo/icons8-arrow-up-48.png"
+                    alt=""
+                  /><span id="max-temp-value">${result.tempMax}</span>
+                </div>
+                <div class="min-temp">
+                  <img
+                    src="assets/icons/logo/icons8-arrow-down-94.png"
+                    alt=""
+                  />
+                  <span id="min-temp-value">${result.tempMin}</span>
+                </div>
+              </div>
+            </div>
+            <div class="city-temp">
+              <p id=" city-temp-value">${result.temp}</p>
+            </div>
+          </div>
+          <div class="date-time-box">
+            <h4>Monday</h4>
+            <div class="weather-main-infos-time">
+              <p>April 7th, 2025</p>
+              <p>21:52</p>
+            </div>
+          </div>
+        </div>
+        <div class="secondary-weatherInfos">
+          <div class="secondary-weatherInfos-boxes">
+            <h2>UV Index</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-uv-index-64.png" alt="" />
+              <h4>${result.uvIndex}</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Humidity</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-humidity-48.png" alt="" />
+              <h4>${result.humidity}%</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Sunrise</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-sunrise-48.png" alt="" />
+              <h4>${result.sunrise}</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Sunset</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-sunset-48.png" alt="" />
+              <h4>${result.sunset}</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Windspeed</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img
+                src="assets/icons/logo/icons8-wind-speed-43-47-48.png"
+                alt=""
+              />
+              <h4>${result.windSpeed}</h4>
+            </div>
+          </div>
+          <div class="secondary-weatherInfos-boxes">
+            <h2>Pressure</h2>
+            <div class="secondary-weatherInfos-boxes_bottom">
+              <img src="assets/icons/logo/icons8-heavy-rain-48.png" alt="" />
+              <h4>${result.pressure}</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+      `;
+
+      mainContainer.innerHTML = renderHTML;
     } else {
       displayError("Error: No city Found");
     }

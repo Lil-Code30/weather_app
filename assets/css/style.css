@@ -40,7 +40,7 @@ header .logo-box h1{
   font-size: 2.5rem;
   color: aliceblue;
   font-family: "JetBrains Mono ExtraBold";
-  word-spacing: -15px;
+  word-spacing: -5px;
 }
 header form{
   display: flex;
@@ -168,6 +168,7 @@ main .section-top{
 .date-time-box h4{
   font-weight: bold;
   font-size: 1.5rem;
+  font-family: "JetBrains Mono ExtraBold";
 }
 .weather-main-infos-time{
   display: flex;
@@ -204,6 +205,11 @@ main .section-top{
   justify-content: space-between;
   align-items: center;
   margin-top: 0.5rem;
+}
+.secondary-weatherInfos-boxes_bottom h4{
+  font-size: 1.2rem !important;
+  font-family: "JetBrains Mono", sans-serif;
+  font-weight: bold;
 }
 @media only screen and (max-width: 756px){
   header{
