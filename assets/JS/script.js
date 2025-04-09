@@ -72,6 +72,8 @@ function renderWeatherInfo(city) {
     if (result) {
       errorMsg.classList.remove("display");
       console.log(result.temp);
+      const dateTime = formatLocalTime(result.localtime);
+
 
       const renderHTML = `
       <section class="section-top">
@@ -106,10 +108,10 @@ function renderWeatherInfo(city) {
             </div>
           </div>
           <div class="date-time-box">
-            <h4>Monday</h4>
+            <h4>${dateTime.dayOfWeek}</h4>
             <div class="weather-main-infos-time">
-              <p>April 7th, 2025</p>
-              <p>21:52</p>
+              <p>${dateTime.month} ${dateTime.day}, ${dateTime.year}</p>
+              <p>${dateTime.hours}:${dateTime.minutes}</p>
             </div>
           </div>
         </div>
@@ -179,4 +181,32 @@ function displayError(msg) {
 // function to convert temperature
 function tempToCelsius(temp) {
   return Math.round(temp - 273.15);
+}
+
+// function to format the local time
+function formatLocalTime(datetime){
+  // create a date object from the datetime
+
+  const date = new Date(datetime);
+
+  //get the day of the week
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  //get the horus and minutes then format it ex: 21:52
+  //const hours = date.getHours().toString().padStart(2, "0");
+
+  return {
+    dayOfWeek: days[date.getDay()],
+    day: date.getUTCDate(),
+    month: months[date.getUTCMonth()],
+    year: date.getUTCFullYear(),
+    hours: date.getHours().toString().padStart(2, "0"),
+    minutes: date.getMinutes().toString().padStart(2, "0"),
+  };
+
 }
